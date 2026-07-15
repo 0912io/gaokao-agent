@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gaokao-agent"
+version = "0.1.0"
+description = "Multi-Agent Collaborative Decision Framework for College Admission"
+readme = "README.md"
+license = {text = "CC BY-NC 4.0"}
+requires-python = ">=3.10"
+authors = [
+    {name = "0912io", email = "lgy20040926@qq.com"}
+]
+keywords = ["agent", "multi-agent", "decision-support", "college-admission"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Education",
+    "License :: Free for non-commercial use",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+    "pyyaml>=6.0",
+    "click>=8.0",
+    "openpyxl>=3.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+]
+
+[project.scripts]
+gaokao-agent = "gaokao_agent.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
