@@ -1,2 +1,0 @@
-[console_scripts]
-gaokao-agent = gaokao_agent.cli:main
