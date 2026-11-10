@@ -44,9 +44,13 @@ class SynthesizerAgent(BaseAgent):
             )
 
         reasons.append(comment)
+        # personas/__init__.py imports this class before ALL_AGENTS exists.
+        from ..personas import ALL_AGENTS
+
         reasons.append(
-            "Final recommendation integrates all 11 agent perspectives "
-            "with weighted voting. Check individual agent verdicts for detail."
+            f"Final recommendation integrates all {len(ALL_AGENTS)} agent "
+            "perspectives with weighted voting. Check individual agent "
+            "verdicts for detail."
         )
 
         # Overall risk assessment

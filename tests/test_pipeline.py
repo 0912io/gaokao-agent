@@ -52,6 +52,26 @@ def test_demo_pipeline():
     assert len(result.risks) >= 0
 
 
+def test_pipeline_stages_match_the_work():
+    """Phase names follow profile, data, council, assembly, then output checks."""
+    agent = GaokaoAgent()
+    profile = Profile(
+        province="陕西", score=520, rank=85000,
+        subjects=["物理", "化学", "生物"],
+    )
+    result = agent.run(profile)
+    history = [step["to"] for step in agent.pipeline.sm.state["phase_history"]]
+    assert history == [
+        "CONSTRAINTS_COLLECTED",
+        "DATA_ACQUIRED",
+        "DELIBERATED",
+        "PLAN_GENERATED",
+        "OUTPUT_DELIVERED",
+    ]
+    assert result.phase == "OUTPUT_DELIVERED"
+    assert not hasattr(agent.pipeline, "pe")
+
+
 def test_council_loaded():
     """Council should have all 10 agents by default."""
     agent = GaokaoAgent()
@@ -66,5 +86,6 @@ if __name__ == "__main__":
     test_profile_validation()
     test_track_inference()
     test_demo_pipeline()
+    test_pipeline_stages_match_the_work()
     test_council_loaded()
     print("All tests passed!")

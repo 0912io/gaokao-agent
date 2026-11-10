@@ -4,7 +4,7 @@ Gaokao Agent — Multi-Agent Collaborative Decision Framework for College Admiss
 Features:
     - 10 specialized agent personas with weighted voting and veto power
     - 6-stage execution pipeline with state machine enforcement
-    - Pluggable data sources with cross-validation pipeline
+    - Pluggable data source for school records
     - CLI and Python API interfaces
 
 Example:

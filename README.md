@@ -5,7 +5,7 @@
 [![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC%20BY--NC%204.0-lightgrey.svg)](LICENSE)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 
-A council of 10 specialized AI agents analyzes college admission options using weighted voting, veto power, and multi-source data cross-validation.
+A council of 10 specialized AI agents analyzes college admission options using weighted voting and veto power.
 
 ## Architecture
 
@@ -26,7 +26,7 @@ User Profile (score/rank/subjects)
    └───┬───────────────────────┘
        │
    ┌───▼──── PostCheck ────────┐
-   │  Source/yr/safety checks   │
+   │  id, consensus, verdicts   │
    └───┬───────────────────────┘
        │
    ┌───▼──── Output ───────────┐
@@ -34,6 +34,8 @@ User Profile (score/rank/subjects)
    │  + Risk warnings           │
    └────────────────────────────┘
 ```
+
+The default pipeline validates the profile, loads one data source, runs the council, assembles weighted votes, and checks recommendation shape. `PolicyEngine` (keyword routing and prose checks) and `CrossValidator` (rank/score comparison across sources) stay importable as standalone helpers. `Pipeline.run` does not call them: this path has no free-text query and no second data source.
 
 ## Quick Start
 

@@ -1,4 +1,9 @@
-"""L1 Policy Engine — keyword-based routing and response validation."""
+"""L1 Policy Engine — keyword-based routing and response validation.
+
+Standalone helper. Pipeline.run does not call it: the default path has
+no free-text query, and it returns structured recommendations rather
+than prose that can be checked for year labels and source URLs.
+"""
 
 import re
 
