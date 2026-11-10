@@ -15,8 +15,7 @@ def main():
     """Gaokao Agent — Multi-Agent Collaborative Decision Framework.
 
     A council of 10 specialized AI agents analyzes college admission
-    options using weighted voting, veto power, and multi-source data
-    cross-validation.
+    options using weighted voting and veto power.
     """
     pass
 

@@ -9,7 +9,7 @@ if __name__ == "__main__":
 from gaokao_agent.council import Council
 from gaokao_agent.council.personas import (
     StrategistAgent, DetectiveAgent, SafetyAuditorAgent,
-    VerifierAgent, ALL_AGENTS,
+    VerifierAgent, SynthesizerAgent, ALL_AGENTS,
 )
 from gaokao_agent.config import Profile
 
@@ -98,6 +98,14 @@ def test_veto_mechanism():
     assert consensus == "high_risk"
 
 
+def test_synthesizer_names_council_size():
+    """Summary text should count the default roster, not a stale 11."""
+    result = SynthesizerAgent().analyze(SAMPLE_SCHOOL, SAMPLE_PROFILE)
+    joined = " ".join(result["reasons"])
+    assert f"all {len(ALL_AGENTS)} agent perspectives" in joined
+    assert "11 agent" not in joined
+
+
 def test_remove_agent():
     """Should be able to remove agents by name."""
     council = Council(auto_load=False)
@@ -114,5 +122,6 @@ if __name__ == "__main__":
     test_council_deliberation()
     test_consensus_with_safety()
     test_veto_mechanism()
+    test_synthesizer_names_council_size()
     test_remove_agent()
     print("All council tests passed!")

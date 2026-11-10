@@ -1,6 +1,8 @@
 """Cross-validator — multi-source data consistency checker.
 
 Compares rank/score data from multiple sources and flags discrepancies.
+Standalone helper. Pipeline.run does not call it: each school comes from
+one data source and has no paired rank/score observations to compare.
 """
 
 from typing import List, Tuple

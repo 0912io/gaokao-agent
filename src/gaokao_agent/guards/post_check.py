@@ -6,10 +6,10 @@ from typing import List
 class PostCheck:
     """Output compliance validator.
 
-    Checks:
-        - Each recommendation has year annotation
-        - Each data point has source attribution
-        - Risk warnings are not empty for reach targets
+    Checks each recommendation for:
+        - a school id
+        - a known consensus label
+        - at least one agent verdict
     """
 
     def validate(self, recommendations: List[dict]

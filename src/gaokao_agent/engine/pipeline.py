@@ -4,7 +4,6 @@ from dataclasses import dataclass, field
 from typing import List
 
 from .state_machine import StateMachine
-from .policy_engine import PolicyEngine
 from ..config import Profile, Settings
 from ..council.council import Council
 from ..guards.pre_check import PreCheck
@@ -46,17 +45,19 @@ class Pipeline:
 
     Stages:
         1. Input validation (pre_check)
-        2. Profile → state_machine.set_four_elements
-        3. Data acquisition (from data_source)
-        4. Council deliberation (parallel agent analysis)
-        5. Cross-validation
-        6. Output assembly + post_check
+        2. Record the profile on the state machine
+        3. Load schools from one data source
+        4. Council deliberation
+        5. Assemble recommendations from council votes
+        6. Output validation (post_check)
+
+    PolicyEngine and CrossValidator are not part of this path. The run
+    has no free-text query and no second source of rank or score data.
     """
 
     def __init__(self, settings: Settings = None):
         self.settings = settings or Settings()
         self.sm = StateMachine()
-        self.pe = PolicyEngine()
         self.pre_check = PreCheck()
         self.post_check = PostCheck()
         self._council = None
@@ -100,10 +101,10 @@ class Pipeline:
 
         # Stage 4: Council deliberation
         deliberations = self.council.deliberate(schools, profile)
-        self.sm.transition("CROSS_VALIDATED")
+        self.sm.transition("DELIBERATED")
         result.phase = self.sm.current_phase()
 
-        # Stage 5: Cross-validation & recommendation assembly
+        # Stage 5: Assemble recommendations from council votes
         recommendations, risks = self._assemble(deliberations, profile)
         result.recommendations = recommendations
         result.risks = risks
