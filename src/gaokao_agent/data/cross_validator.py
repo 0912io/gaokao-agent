@@ -3,7 +3,7 @@
 Compares rank/score data from multiple sources and flags discrepancies.
 """
 
-from typing import List, Dict, Tuple
+from typing import List, Tuple
 
 
 class CrossValidator:

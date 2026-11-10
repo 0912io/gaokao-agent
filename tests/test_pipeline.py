@@ -1,8 +1,10 @@
 """Tests for pipeline orchestration."""
 
-import sys
 import os
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
+import sys
+
+if __name__ == "__main__":
+    sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 
 from gaokao_agent import GaokaoAgent
 from gaokao_agent.config import Profile

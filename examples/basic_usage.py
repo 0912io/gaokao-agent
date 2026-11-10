@@ -2,7 +2,6 @@
 
 from gaokao_agent import GaokaoAgent
 from gaokao_agent.config import Profile
-from gaokao_agent.data.demo_source import DemoDataSource
 
 
 def main():

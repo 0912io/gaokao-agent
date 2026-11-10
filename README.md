@@ -133,6 +133,33 @@ agent = GaokaoAgent()
 agent.data_source = MyDataSource()
 ```
 
+## Development
+
+```bash
+pip install -e ".[dev]"
+pytest
+```
+
+## Project Structure
+
+```
+gaokao-agent/
+├── src/gaokao_agent/
+│   ├── __init__.py      # Public API (GaokaoAgent)
+│   ├── _version.py      # Package version
+│   ├── cli.py           # Command-line interface
+│   ├── config.py        # Profile and Settings
+│   ├── engine/          # Pipeline + state machine + policy engine
+│   ├── council/         # Agent base + council + 10 personas
+│   ├── data/            # Data source interface, demo schools, cross-validator
+│   └── guards/          # Pre/post execution validators
+├── examples/            # Usage examples
+├── tests/               # pytest suite
+├── pyproject.toml
+├── README.md
+└── LICENSE
+```
+
 ## License
 
 CC BY-NC 4.0 — Free for non-commercial use with attribution.
@@ -146,17 +173,3 @@ CC BY-NC 4.0 — Free for non-commercial use with attribution.
 - NOT use for commercial purposes without permission
 
 For commercial licensing: contact the author.
-
-## Project Structure
-
-```
-gaokao-agent/
-├── src/gaokao_agent/
-│   ├── engine/          # Pipeline + state machine + policy engine
-│   ├── council/         # Agent base + council + 10 personas
-│   ├── data/            # Data source interface + demo data + cross-validator
-│   └── guards/          # Pre/post execution validators
-├── examples/            # Usage examples
-├── tests/               # pytest suite
-└── pyproject.toml       # pip install configuration
-```

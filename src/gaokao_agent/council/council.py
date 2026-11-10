@@ -28,18 +28,9 @@ class Council:
     @staticmethod
     def _default_agents() -> list:
         """Return the 10 default council agent classes."""
-        from .personas import (  # noqa: E402
-            StrategistAgent, DetectiveAgent, TrendAnalystAgent,
-            ArbitrageurAgent, SafetyAuditorAgent, VerifierAgent,
-            QualityFilterAgent, IndustryMatcherAgent,
-            FallbackAgent, SynthesizerAgent,
-        )
-        return [
-            StrategistAgent, DetectiveAgent, TrendAnalystAgent,
-            ArbitrageurAgent, SafetyAuditorAgent, VerifierAgent,
-            QualityFilterAgent, IndustryMatcherAgent,
-            FallbackAgent, SynthesizerAgent,
-        ]
+        from .personas import ALL_AGENTS  # noqa: E402
+
+        return list(ALL_AGENTS)
 
     def add(self, agent: BaseAgent):
         """Register an agent to the council."""
