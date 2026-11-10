@@ -2,7 +2,7 @@
 Gaokao Agent — Multi-Agent Collaborative Decision Framework for College Admission.
 
 Features:
-    - 11 specialized agent personas with weighted voting and veto power
+    - 10 specialized agent personas with weighted voting and veto power
     - 6-stage execution pipeline with state machine enforcement
     - Pluggable data sources with cross-validation pipeline
     - CLI and Python API interfaces
@@ -14,16 +14,16 @@ Example:
     >>> agent = GaokaoAgent()
     >>> result = agent.run(Profile(
     ...     province="XX", score=500, rank=80000,
-    ...     subjects=["physics", "chemistry", "biology"]
+    ...     subjects=["物理", "化学", "生物"]
     ... ))
     >>> print(result.recommendations)
 """
 
+from ._version import __version__
 from .config import Profile, Settings
 from .engine.pipeline import Pipeline
 
-__version__ = "0.1.0"
-__all__ = ["GaokaoAgent", "Profile", "Settings", "Pipeline"]
+__all__ = ["GaokaoAgent", "Profile", "Settings", "Pipeline", "__version__"]
 
 
 class GaokaoAgent:

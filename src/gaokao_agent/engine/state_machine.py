@@ -4,7 +4,6 @@ States: INITIAL → CONSTRAINTS_COLLECTED → DATA_ACQUIRED →
         CROSS_VALIDATED → PLAN_GENERATED → OUTPUT_DELIVERED
 """
 
-import json
 from datetime import datetime
 from typing import List, Tuple
 

@@ -5,13 +5,12 @@ import sys
 
 import click
 
-from . import GaokaoAgent
+from . import GaokaoAgent, __version__
 from .config import Profile
-from .data.demo_source import DemoDataSource
 
 
 @click.group()
-@click.version_option(version="0.1.0", prog_name="gaokao-agent")
+@click.version_option(version=__version__, prog_name="gaokao-agent")
 def main():
     """Gaokao Agent — Multi-Agent Collaborative Decision Framework.
 

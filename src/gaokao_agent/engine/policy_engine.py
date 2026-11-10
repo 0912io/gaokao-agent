@@ -1,7 +1,6 @@
 """L1 Policy Engine — keyword-based routing and response validation."""
 
 import re
-from typing import List, Optional
 
 
 class PolicyEngine:
