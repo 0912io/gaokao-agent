@@ -55,8 +55,11 @@ gaokao-agent demo
 # Demo mode
 gaokao-agent demo
 
-# Full mode
+# Full mode. Prints only the result unless --verbose is set.
+# --verbose adds one JSON status line before the JSON or table result:
+# {"status": "running", ...}
 gaokao-agent run --province XX --score 500 --rank 80000 --subjects 物理,化学,生物
+gaokao-agent run --verbose --province XX --score 500 --rank 80000 --subjects 物理,化学,生物
 
 # List all agents
 gaokao-agent list-agents

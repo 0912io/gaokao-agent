@@ -31,11 +31,14 @@ class GaokaoAgent:
 
     Orchestrates the council of expert agents, data pipeline, and
     state machine to produce college admission recommendations.
+
+    The default school list is the built-in demo source. Replace
+    ``data_source`` to supply another source. ``run()`` does not read
+    CLI presentation settings and has no switch for a live data backend.
     """
 
-    def __init__(self, settings=None):
-        self.settings = settings or Settings()
-        self.pipeline = Pipeline(self.settings)
+    def __init__(self):
+        self.pipeline = Pipeline()
         self._data_source = None
 
     @property
