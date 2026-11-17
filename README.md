@@ -4,6 +4,7 @@
 
 [![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC%20BY--NC%204.0-lightgrey.svg)](LICENSE)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
+[![CI](https://github.com/0912io/gaokao-agent/actions/workflows/ci.yml/badge.svg)](https://github.com/0912io/gaokao-agent/actions/workflows/ci.yml)
 
 A council of 10 specialized AI agents analyzes college admission options using weighted voting and veto power.
 

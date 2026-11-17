@@ -1,11 +1,5 @@
 """Tests for the pipeline's profile pre-check."""
 
-import os
-import sys
-
-if __name__ == "__main__":
-    sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
-
 from gaokao_agent.config import Profile
 from gaokao_agent.guards.pre_check import PreCheck
 

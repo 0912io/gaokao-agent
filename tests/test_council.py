@@ -1,11 +1,5 @@
 """Tests for council voting engine."""
 
-import os
-import sys
-
-if __name__ == "__main__":
-    sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
-
 from gaokao_agent.council import Council
 from gaokao_agent.council.personas import (
     StrategistAgent, DetectiveAgent, SafetyAuditorAgent,

@@ -1,11 +1,6 @@
 """CLI tests for demo, run, list-agents, and --version."""
 
 import json
-import os
-import sys
-
-if __name__ == "__main__":
-    sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 
 from click.testing import CliRunner
 
