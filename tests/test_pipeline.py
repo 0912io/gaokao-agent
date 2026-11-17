@@ -8,6 +8,8 @@ if __name__ == "__main__":
 
 from gaokao_agent import GaokaoAgent
 from gaokao_agent.config import Profile
+from gaokao_agent.data.demo_source import DemoDataSource
+from gaokao_agent.engine.pipeline import Pipeline
 
 
 def test_profile_validation():
@@ -96,6 +98,28 @@ def test_run_with_kwargs_when_profile_omitted():
     assert "profile_invalid" in rejected.errors[0]
 
 
+def test_default_run_leaves_memory_mcp_and_citation_gates_false():
+    """A successful default run does not mark memory, MCP, or citations."""
+    profile = Profile(
+        province="陕西", score=520, rank=85000,
+        subjects=["物理", "化学", "生物"],
+    )
+
+    def assert_gates(result, state_machine):
+        gates = state_machine.state["execution_gates"]
+        assert result.phase == "OUTPUT_DELIVERED"
+        assert result.errors == []
+        assert not gates.get("memory_loaded")
+        assert not gates.get("mcp_called")
+        assert not gates.get("citation_added")
+
+    agent = GaokaoAgent()
+    assert_gates(agent.run(profile), agent.pipeline.sm)
+
+    pipeline = Pipeline()
+    assert_gates(pipeline.run(profile, DemoDataSource()), pipeline.sm)
+
+
 def test_council_loaded():
     """Council should have all 10 agents by default."""
     agent = GaokaoAgent()
@@ -112,5 +136,6 @@ if __name__ == "__main__":
     test_demo_pipeline()
     test_pipeline_stages_match_the_work()
     test_run_with_kwargs_when_profile_omitted()
+    test_default_run_leaves_memory_mcp_and_citation_gates_false()
     test_council_loaded()
     print("All tests passed!")

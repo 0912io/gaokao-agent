@@ -55,6 +55,11 @@ class Pipeline:
     has no free-text query and no second source of rank or score data.
     Verbosity and output format are not inputs here; the caller prints
     the result. School records come from the ``data_source`` argument.
+
+    This path does not load memory, call MCP, or attach citations, so it
+    does not set ``memory_loaded``, ``mcp_called``, or ``citation_added``.
+    Those gates, plus ``check_gates``, ``check_web_minimums``, and
+    ``check_all``, stay on ``StateMachine`` for standalone helpers.
     """
 
     def __init__(self):
@@ -91,12 +96,10 @@ class Pipeline:
             subjects=profile.subjects,
             gender=profile.gender,
         )
-        self.sm.set_gate("memory_loaded", True)
         result.phase = self.sm.current_phase()
 
         # Stage 3: Data acquisition
         schools = data_source.get_schools(profile)
-        self.sm.set_gate("mcp_called", True)
         self.sm.transition("DATA_ACQUIRED")
         result.phase = self.sm.current_phase()
 
@@ -109,7 +112,6 @@ class Pipeline:
         recommendations, risks = self._assemble(deliberations, profile)
         result.recommendations = recommendations
         result.risks = risks
-        self.sm.set_gate("citation_added", True)
         self.sm.transition("PLAN_GENERATED")
         result.phase = self.sm.current_phase()
 

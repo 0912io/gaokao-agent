@@ -24,7 +24,7 @@ class PostCheck:
         for i, rec in enumerate(recommendations):
             prefix = f"rec[{i}]"
 
-            # Check school name presence
+            # Check school id presence
             if not rec.get("school_id"):
                 issues.append(f"{prefix}:missing_school_id")
 

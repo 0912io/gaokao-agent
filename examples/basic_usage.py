@@ -5,7 +5,7 @@ from gaokao_agent.config import Profile
 
 
 def main():
-    # Create agent with default settings
+    # Create an agent. School data defaults to the built-in demo source.
     agent = GaokaoAgent()
 
     # Create a student profile
