@@ -37,6 +37,8 @@ User Profile (score/rank/subjects)
 
 The default pipeline validates the profile, loads one data source, runs the council, assembles weighted votes, and checks recommendation shape. `PolicyEngine` (keyword routing and prose checks) and `CrossValidator` (rank/score comparison across sources) stay importable as standalone helpers. `Pipeline.run` does not call them: this path has no free-text query and no second data source.
 
+`StateMachine` still keeps `memory_loaded`, `mcp_called`, and `citation_added` on `execution_gates`, with `set_gate`, `check_gates`, `check_web_minimums`, and `check_all` for standalone helpers. The default run does not load memory, call MCP, or add citations, and it does not set or check those gates.
+
 ## Quick Start
 
 ```bash

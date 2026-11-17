@@ -1,7 +1,13 @@
-"""L1 State Machine — enforces mandatory execution gates for the pipeline.
+"""State machine for the six pipeline phases.
 
 States: INITIAL → CONSTRAINTS_COLLECTED → DATA_ACQUIRED →
         DELIBERATED → PLAN_GENERATED → OUTPUT_DELIVERED
+
+``execution_gates`` still records ``memory_loaded``, ``mcp_called``,
+``citation_added``, and the web-search counters. ``set_gate``,
+``check_gates``, ``check_web_minimums``, and ``check_all`` stay
+available for standalone helpers. ``Pipeline.run`` does not set or
+check those gates.
 """
 
 from datetime import datetime
@@ -73,13 +79,9 @@ class StateMachine:
 
     def check_four_elements(self) -> Tuple[bool, List[str]]:
         fe = self.state.get("four_elements", {})
-        if fe.get("confirmed"):
-            missing = [k for k in ["province", "score", "rank", "track"]
-                       if not fe.get(k)]
-        else:
-            missing = [k for k in ["province_confirmed", "score_confirmed",
-                                   "rank_confirmed", "track_confirmed"]
-                       if not fe.get(k)]
+        missing = [k for k in ["province_confirmed", "score_confirmed",
+                               "rank_confirmed", "track_confirmed"]
+                   if not fe.get(k)]
         return (len(missing) == 0, missing)
 
     def set_four_elements(self, province, score, rank, track,
