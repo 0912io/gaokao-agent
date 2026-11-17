@@ -4,7 +4,7 @@ from dataclasses import dataclass, field
 from typing import List
 
 from .state_machine import StateMachine
-from ..config import Profile, Settings
+from ..config import Profile
 from ..council.council import Council
 from ..guards.pre_check import PreCheck
 from ..guards.post_check import PostCheck
@@ -53,10 +53,11 @@ class Pipeline:
 
     PolicyEngine and CrossValidator are not part of this path. The run
     has no free-text query and no second source of rank or score data.
+    Verbosity and output format are not inputs here; the caller prints
+    the result. School records come from the ``data_source`` argument.
     """
 
-    def __init__(self, settings: Settings = None):
-        self.settings = settings or Settings()
+    def __init__(self):
         self.sm = StateMachine()
         self.pre_check = PreCheck()
         self.post_check = PostCheck()

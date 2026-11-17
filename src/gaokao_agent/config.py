@@ -50,7 +50,14 @@ class Profile:
 
 @dataclass
 class Settings:
-    """Global agent settings."""
+    """Presentation options for the ``gaokao-agent run`` command.
+
+    ``verbose`` controls the JSON status line. ``output_format`` is
+    ``json`` or ``table``. ``Pipeline.run`` does not read these fields,
+    and they do not select a school-data source. The CLI and
+    ``GaokaoAgent`` use the built-in demo source unless the caller
+    replaces ``data_source``.
+    """
+
     verbose: bool = False
     output_format: str = "json"  # json | table
-    demo_mode: bool = True

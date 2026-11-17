@@ -6,7 +6,7 @@ import sys
 import click
 
 from . import GaokaoAgent, __version__
-from .config import Profile
+from .config import Profile, Settings
 
 
 @click.group()
@@ -41,16 +41,6 @@ def demo():
     click.echo(f"Track: {profile.track}")
     click.echo()
 
-    # Pre-check
-    from .guards.pre_check import PreCheck
-    pc = PreCheck()
-    ok, issues = pc.validate_profile(profile)
-    if not ok:
-        click.echo(f"Profile validation FAILED: {issues}")
-        sys.exit(1)
-    click.echo(f"Pre-check: PASSED")
-    click.echo()
-
     # Load schools
     schools = agent.data_source.get_schools(profile)
     click.echo(f"Schools loaded: {len(schools)}")
@@ -64,9 +54,13 @@ def demo():
         click.echo(f"  - {a.name} (weight={a.weight}){veto_mark}")
     click.echo()
 
-    # Run deliberation
+    # Run deliberation. The pipeline validates the profile.
     click.echo("Deliberating...")
     result = agent.pipeline.run(profile, agent.data_source)
+    if result.phase == "REJECTED":
+        detail = ", ".join(result.errors) if result.errors else result.phase
+        click.echo(f"Profile validation FAILED: {detail}")
+        sys.exit(1)
 
     click.echo()
     click.echo("=" * 60)
@@ -98,11 +92,14 @@ def demo():
 @click.option("--gender", default="", help="Optional: 男/女")
 @click.option("--format", "output_format", default="json",
               type=click.Choice(["json", "table"]), help="Output format")
-@click.option("--verbose", is_flag=True, help="Verbose output")
+@click.option("--verbose", is_flag=True,
+              help="Print a JSON status line before the result")
 def run(province, score, rank, subjects, gender, output_format, verbose):
-    """Run full analysis with a student profile."""
-    from .config import Settings
+    """Run analysis for a student profile.
 
+    School records come from the built-in demo data source. There is
+    no separate live data backend.
+    """
     profile = Profile(
         province=province,
         score=score,
@@ -112,15 +109,15 @@ def run(province, score, rank, subjects, gender, output_format, verbose):
     )
 
     settings = Settings(verbose=verbose, output_format=output_format)
-    agent = GaokaoAgent(settings=settings)
+    agent = GaokaoAgent()
 
-    # For demo, always use demo data
-    click.echo(json.dumps({"status": "running", "profile": profile.__dict__},
-                          ensure_ascii=False, default=str))
+    if settings.verbose:
+        click.echo(json.dumps({"status": "running", "profile": profile.__dict__},
+                              ensure_ascii=False, default=str))
 
     result = agent.run(profile)
 
-    if output_format == "json":
+    if settings.output_format == "json":
         click.echo(json.dumps(result.to_dict(), ensure_ascii=False, indent=2))
     else:
         click.echo(f"Phase: {result.phase}")
