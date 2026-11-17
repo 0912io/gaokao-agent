@@ -1,11 +1,5 @@
 """Tests for CrossValidator as a standalone helper."""
 
-import os
-import sys
-
-if __name__ == "__main__":
-    sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
-
 from gaokao_agent.data.cross_validator import CrossValidator
 
 
